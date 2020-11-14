@@ -17,6 +17,11 @@
                     {{object.content | linebreaks | truncatewords:10}}
                 </p>
             </div>
+            <div class="card-footer text-center">
+                <p>
+                    <a href="{{object.get_absolute_url}}" class="btn btn-outline-success">Read More Details</a>
+                </p>
+            </div>
         </div>
     </div>
     {% endfor %}
