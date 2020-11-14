@@ -6,12 +6,20 @@
 <div class="container mt-2">
     <div class="card">
         <div class="card-header text-center bg-success text-white">
-            <h4>{{object.title}}</h4>
+            <h4>{{object.title}}
+                <a class="btn btn-sm btn-danger" href="{{object.get_update_url}}">Edit</a>
+            </h4> 
+            
+                
+           
         </div>
         <div class="card-body">
             <p>
                 {{object.content | linebreaks}}
             </p>
+        </div>
+        <div class="card-footer">
+
         </div>
     </div>
 </div>

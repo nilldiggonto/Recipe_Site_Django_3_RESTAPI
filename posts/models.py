@@ -14,3 +14,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('posts:post_detail',args= [self.slug])
+
+    def get_update_url(self):
+        return reverse('posts:post_update',args= [self.slug])
+

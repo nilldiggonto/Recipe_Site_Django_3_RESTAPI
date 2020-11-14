@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
-{% block title %} Create {% endblock %}
+
+
+
+{% block title %} {{info}} {% endblock %}
 
 
 {% block content %}
 <div class="container mt-2">
     <div class="card">
         <div class="card-header text-center bg-warning text-white">
-            <h4>Create A Recipe Post</h4>
+            <h4>  {{info}} Recipe Post</h4>
         </div>
         <div class="card-body">
             <form action="" method="POST" class="form">
                 {% bootstrap_form form %}
                 {% csrf_token %}
 
-                <button type="submit" class="btn btn-outline-info">Create Recipe</button>
+                <button type="submit" class="btn btn-outline-info">
+                    {{info}} Recipe</button>
             </form>
         </div>
     </div>
