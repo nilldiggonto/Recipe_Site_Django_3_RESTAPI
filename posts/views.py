@@ -1,6 +1,7 @@
 from django.shortcuts import render,get_object_or_404,HttpResponseRedirect
 from .models import Post
 from .forms import PostForm
+from django.contrib import messages
 # Create your views here.
 def post_list(request):
     template_name = 'posts/list.html'
@@ -27,7 +28,10 @@ def post_create(request):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
+        messages.success(request,'Successfully Created')
         return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request,'Something went Wrong')
 
     template_name = 'posts/create.html'
     context = {
@@ -44,7 +48,10 @@ def post_update(request,slug):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
+        messages.success(request,'Successfully Updated')
         return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.error(request,'Something went wrong ')
 
     template_name = 'posts/create.html'
     context = {
