@@ -26,5 +26,26 @@
     </div>
     {% endfor %}
 </div>
+
+<!--Pagination-->
+
+
+
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="justify-content: center !important;">
+    <div class="btn-group " role="group" aria-label="Second group">
+    {% if object_list.has_previous %}
+    <a class="btn btn-outline-danger" href="?page={{ object_list.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    
+      <button type="button" class="btn btn-secondary">Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.</button>
+     
+      {% if object_list.has_next %}
+      <a class= "btn btn-outline-danger" href="?page={{ object_list.next_page_number }}">Next</a>
+      {% endif %}
+    </div>
+</div>
+
+<!--End Pagination-->
 </div>
 {% endblock %}

@@ -18,3 +18,6 @@ class Post(models.Model):
     def get_update_url(self):
         return reverse('posts:post_update',args= [self.slug])
 
+    class Meta:
+        ordering = ['-timestamp','-updated']
+
