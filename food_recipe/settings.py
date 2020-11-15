@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'posts.apps.PostsConfig',
     'pagedown.apps.PagedownConfig',
+    'comments.apps.CommentsConfig',
 ]
 
 MIDDLEWARE = [
