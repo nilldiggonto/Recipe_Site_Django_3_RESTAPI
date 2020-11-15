@@ -1,7 +1,20 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 
+{% block head_extra %}
+    {{form.media}}
+{%endblock head_extra %}
 
+
+{% block style %}
+    .wmd-panel{
+        margin-left: 0% !important;
+        margin-right: 0% !important;
+        width: 100% !important;
+        min-width: 400px !important;
+    }
+
+{% endblock style%}
 
 {% block title %} {{info}} {% endblock %}
 

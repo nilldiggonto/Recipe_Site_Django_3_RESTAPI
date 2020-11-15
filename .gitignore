@@ -11,3 +11,4 @@ db.sqlite3-journal
 /products
 cert.crt
 cert.key
+/static_cdn
