@@ -46,9 +46,11 @@ def post_detail(request,slug):
             raise Http404
 
     #comment
-    content_type = ContentType.objects.get_for_model(Post)
-    obj_id = instance.id
-    comment = Comment.objects.filter(content_type = content_type, object_id= obj_id)
+    # content_type = ContentType.objects.get_for_model(Post)
+    # obj_id = instance.id
+    # comment = Comment.objects.filter(content_type = content_type, object_id= obj_id)
+    # comment = Comment.objects.filter_by_instance(instance)
+    comment = instance.comments
     template_name = 'posts/detail.html'
     context = {
         'object':instance,

@@ -50,14 +50,19 @@
     <div class="card">
         <div class="card-header bg-warning text-white">
             <h4>Leave a comment here:</h4>
+            <!-- {{object.comments}} -->
         </div>
         {% for comment in comments %}
         <div class="card-body">
-           
-            {{comment.content}} <br> by {{comment.user.username}} @ {{comment.timestamp|timesince}} ago
+
+            <blockquote class="blockquote text-left">
+                <p class="mb-0">{{comment.content}}</p>
+                <footer class="blockquote-footer">by {{comment.user.username}} <cite title="Source Title">
+                    @ {{comment.timestamp|timesince}} ago</cite></footer>
+              </blockquote>
            
         </div>
-        <hr>
+      
         {% endfor %}
     </div>
 </div>

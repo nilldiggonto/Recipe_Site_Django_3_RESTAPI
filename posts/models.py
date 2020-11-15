@@ -4,6 +4,7 @@ from django.conf import settings
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from django.utils import timezone
+from comments.models import Comment
 
 ## MODEL MANAGER
 class PostManager(models.Manager):
@@ -36,6 +37,12 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-timestamp','-updated']
+
+    @property
+    def comments(self):
+        instance = self
+        qs = Comment.objects.filter_by_instance(instance)
+        return qs
 
 
 
