@@ -3,7 +3,7 @@ from .models import Post
 from .forms import PostForm
 from django.contrib import messages
 from django.utils import timezone
-
+from django.db.models import Q
 from django.core.paginator import Page,PageNotAnInteger,Paginator,EmptyPage
 # Create your views here.
 def post_list(request):
@@ -13,6 +13,12 @@ def post_list(request):
     queryset_list = Post.objects.active()#.order_by('-timestamp')
     if request.user.is_staff or request.user.is_superuser:
         queryset_list = Post.objects.all()
+
+
+
+    query = request.GET.get('q')
+    if query:
+        queryset_list = queryset_list.filter(Q(title__icontains= query)| Q(content__icontains=query)).distinct()
     paginator = Paginator(queryset_list,2)
     page = request.GET.get('page')
     try:
@@ -24,6 +30,7 @@ def post_list(request):
     context = {
         'object_list':queryset,
         'today':today,
+        'query':query,
 
     }
     return render(request,template_name,context)
