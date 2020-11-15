@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Q
 from django.core.paginator import Page,PageNotAnInteger,Paginator,EmptyPage
+from django.contrib.contenttypes.models import ContentType
+from comments.models import Comment
 # Create your views here.
 def post_list(request):
     template_name = 'posts/list.html'
@@ -42,10 +44,16 @@ def post_detail(request,slug):
     if instance.draft or instance.publish > timezone.now().date():
         if not request.user.is_staff or not request.user.is_superuser:
             raise Http404
+
+    #comment
+    content_type = ContentType.objects.get_for_model(Post)
+    obj_id = instance.id
+    comment = Comment.objects.filter(content_type = content_type, object_id= obj_id)
     template_name = 'posts/detail.html'
     context = {
         'object':instance,
         'today':today,
+        'comments':comment,
     }
     return render(request,template_name,context)
 

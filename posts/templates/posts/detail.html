@@ -51,9 +51,14 @@
         <div class="card-header bg-warning text-white">
             <h4>Leave a comment here:</h4>
         </div>
+        {% for comment in comments %}
         <div class="card-body">
-            {{object.comment_post}}
+           
+            {{comment.content}} <br> by {{comment.user.username}} @ {{comment.timestamp|timesince}} ago
+           
         </div>
+        <hr>
+        {% endfor %}
     </div>
 </div>
 
