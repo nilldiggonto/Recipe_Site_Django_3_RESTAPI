@@ -5,6 +5,7 @@ from django.urls import reverse
 class Post(models.Model):
     title       = models.CharField(max_length=200)
     slug        = models.SlugField(unique=True,null=True)
+    images      = models.ImageField(upload_to='recipe/%y/%m/%d',blank=True,null=True)
     content     = models.TextField()
     timestamp   = models.DateTimeField(auto_now_add=True)
     updated     = models.DateTimeField(auto_now=True)

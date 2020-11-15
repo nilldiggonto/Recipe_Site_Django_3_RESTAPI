@@ -34,7 +34,7 @@ def post_detail(request,slug):
 
 def post_create(request):
     info ='Create'
-    form = PostForm(request.POST)
+    form = PostForm(request.POST, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
@@ -54,7 +54,7 @@ def post_create(request):
 def post_update(request,slug):
     info= 'Edit'
     instance = get_object_or_404(Post,slug=slug)
-    form = PostForm(request.POST or None, instance=instance)
+    form = PostForm(request.POST or None, request.FILES or None, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()

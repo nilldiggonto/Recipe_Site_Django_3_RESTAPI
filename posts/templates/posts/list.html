@@ -13,9 +13,22 @@
                 <h4>{{object.title}}</h4>
             </div>
             <div class="card-body">
-                <p>
-                    {{object.content | linebreaks | truncatewords:10}}
-                </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        {% if object.images %}
+                        <img src="{{object.images.url}}" alt="" class="card-img-top">
+                        {% else %}
+                        <img src="https://image.freepik.com/free-vector/error-404-found-glitch-effect_8024-4.jpg" alt="Nothing" class="card-img-top">
+                        {%endif %}
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            {{object.content | linebreaks | truncatewords:10}}
+                        </p>
+                    </div>
+                </div>
+                
             </div>
             <div class="card-footer text-center">
                 <p>

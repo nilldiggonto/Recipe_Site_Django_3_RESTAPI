@@ -13,7 +13,7 @@
             <h4>  {{info}} Recipe Post</h4>
         </div>
         <div class="card-body">
-            <form action="" method="POST" class="form">
+            <form action="" method="POST" class="form" enctype="multipart/form-data">
                 {% bootstrap_form form %}
                 {% csrf_token %}
 
