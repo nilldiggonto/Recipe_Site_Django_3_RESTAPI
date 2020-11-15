@@ -34,6 +34,15 @@
                 <p>
                     <a href="{{object.get_absolute_url}}" class="btn btn-outline-success">Read More Details</a>
                 </p>
+                <p class="text-danger">
+                    {% if today < object.publish %}
+                    {{object.publish}} Is the date
+                    {% endif %}
+
+                    {% if object.draft %}
+                    It's A Draft
+                    {% endif %}
+                </p>
             </div>
         </div>
     </div>

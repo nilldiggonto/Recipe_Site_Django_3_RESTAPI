@@ -7,8 +7,10 @@
     <div class="card">
         <div class="card-header text-center bg-success text-white">
             <h4>{{object.title}}
+                {% if request.user.is_authenticated %}
                 <a class="btn btn-sm btn-warning" href="{{object.get_update_url}}">Edit</a>
                 <a class="btn btn-sm btn-danger" href="{% url 'posts:post_delete' object.slug %}">Delete</a>
+                {% endif %}
             </h4> 
             
                 
@@ -32,7 +34,16 @@
             </div>
         </div>
         <div class="card-footer">
+            <p>Added by: {{object.user.username}}</p>
+            <p class="text-danger">
+                {% if today < object.publish %}
+                {{object.publish}} Is the date
+                {% endif %}
 
+                {% if object.draft %}
+                It's A Draft
+                {% endif %}
+            </p>
         </div>
     </div>
 </div>
