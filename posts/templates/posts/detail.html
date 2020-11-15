@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <p>Added by: {{object.user.username}}</p>
+            <!-- <p>Added by: {{object.user.username}}</p> -->
             <p class="text-danger">
                 {% if today < object.publish %}
                 {{object.publish}} Is the date
@@ -44,6 +44,15 @@
                 It's A Draft
                 {% endif %}
             </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-warning text-white">
+            <h4>Leave a comment here:</h4>
+        </div>
+        <div class="card-body">
+            {{object.comment_post}}
         </div>
     </div>
 </div>
