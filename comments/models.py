@@ -20,12 +20,12 @@ class CommentManager(models.Manager):
 
 # Create your models here.
 class Comment(models.Model):
-    user        = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,default=1)
+    user            = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,default=1)
     # post        = models.ForeignKey(Post,on_delete= models.CASCADE,related_name='comment_post')
-
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id') 
+    parent          = models.ForeignKey('self',null=True,blank=True, on_delete= models.CASCADE)
+    content_type    = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id       = models.PositiveIntegerField()
+    content_object  = GenericForeignKey('content_type', 'object_id') 
 
 
 
@@ -36,5 +36,17 @@ class Comment(models.Model):
 
     objects = CommentManager()
 
+    class Meta:
+        ordering = ['-timestamp']
+
     def __str__(self):
         return self.user.username
+
+    def children(self):
+        return Comment.objects.filter(parent=self)
+
+    @property
+    def is_parent(self):
+        if self.parent is not None:
+            return False
+        return True

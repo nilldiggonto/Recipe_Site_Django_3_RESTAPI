@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.core.paginator import Page,PageNotAnInteger,Paginator,EmptyPage
 from django.contrib.contenttypes.models import ContentType
 from comments.models import Comment
+from comments.forms import CommentForm 
 # Create your views here.
 def post_list(request):
     template_name = 'posts/list.html'
@@ -50,12 +51,40 @@ def post_detail(request,slug):
     # obj_id = instance.id
     # comment = Comment.objects.filter(content_type = content_type, object_id= obj_id)
     # comment = Comment.objects.filter_by_instance(instance)
+
+    ##Comment Form
+    initial_data = {
+        'content_type': instance.get_post_content_type,
+        'object_id': instance.id
+    }
+    comment_form = CommentForm(request.POST or None, initial=initial_data)
+    print(instance.id)
+    # print(comment_form)
+    if comment_form.is_valid():
+        c_type = comment_form.cleaned_data.get('content_type')
+        
+        content_type = ContentType.objects.get(app_label= 'posts',model='post')
+        # print(content_type)
+        obj_id = comment_form.cleaned_data.get('object_id')
+        content_data = comment_form.cleaned_data.get('content')
+        new_comment,created = Comment.objects.get_or_create(
+                                user = request.user,
+                                content_type = content_type,
+                                object_id = obj_id,
+                                content = content_data)
+        print(new_comment)
+        if created:
+            print('created')
+        else:
+            print('something wrong')
+
     comment = instance.comments
     template_name = 'posts/detail.html'
     context = {
         'object':instance,
         'today':today,
         'comments':comment,
+        'comment_form':comment_form,
     }
     return render(request,template_name,context)
 

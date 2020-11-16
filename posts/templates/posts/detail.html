@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load bootstrap4 %}
 {% block title %} {{object.title}} {%endblock %}
 
 {% block content %}
@@ -64,6 +64,13 @@
         </div>
       
         {% endfor %}
+        <div class="card-footer">
+            <form action="" class="form" method="POST">
+                {%csrf_token %}
+                {% bootstrap_form comment_form %}
+                <input type="submit" value="Comment" class="btn btn-sm btn-outline-success">
+            </form>
+        </div>
     </div>
 </div>
 
