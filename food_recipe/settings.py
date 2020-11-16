@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'pagedown.apps.PagedownConfig',
     'comments.apps.CommentsConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
