@@ -8,4 +8,5 @@ urlpatterns = [
     path('',home_page,name='home'),
     path('account/',include('accounts.urls',namespace='accounts')),
     path('posts/',include('posts.urls',namespace='posts')),
+    path('post/api/',include('posts.api.urls',namespace='post_api')),
 ]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
