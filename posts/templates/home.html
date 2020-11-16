@@ -4,5 +4,11 @@
 
 
 {% block content %}
-
+{% if request.user.is_authenticated %}
+<div class="jumbotron mt2">
+    <h4>{{user.username}} Welcome</h4>
+</div>
+{% else %}
+<p>Hmmmmmmmmmm</p>
+{%endif %}
 {% endblock %}

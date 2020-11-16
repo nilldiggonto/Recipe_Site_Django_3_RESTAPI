@@ -8,6 +8,7 @@ from django.core.paginator import Page,PageNotAnInteger,Paginator,EmptyPage
 from django.contrib.contenttypes.models import ContentType
 from comments.models import Comment
 from comments.forms import CommentForm 
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def post_list(request):
     template_name = 'posts/list.html'
@@ -99,10 +100,10 @@ def post_detail(request,slug):
     }
     return render(request,template_name,context)
 
-
+@login_required(login_url='accounts:login_view')
 def post_create(request):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
+    # if not request.user.is_staff or not request.user.is_superuser:
+    #     raise Http404
     info ='Create'
     form = PostForm(request.POST, request.FILES or None)
     if form.is_valid():
@@ -121,7 +122,7 @@ def post_create(request):
     }
     return render(request,template_name,context)
 
-
+@login_required(login_url='accounts:login_view')
 def post_update(request,slug):
     if not request.user.is_staff or not request.user.is_superuser:
         raise Http404
@@ -145,7 +146,7 @@ def post_update(request,slug):
     return render(request,template_name,context)
 
 
-
+@login_required
 def post_delete(request,slug):
     if not request.user.is_staff or not request.user.is_superuser:
         raise Http404
