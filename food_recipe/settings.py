@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'pagedown.apps.PagedownConfig',
     'comments.apps.CommentsConfig',
     'accounts.apps.AccountsConfig',
+    #restapi
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
