@@ -52,27 +52,54 @@
             <h4>Leave a comment here:</h4>
             <!-- {{object.comments}} -->
         </div>
-        {% for comment in comments %}
-        <div class="card-body">
 
-            <blockquote class="blockquote text-left">
-                <p class="mb-0">{{comment.content}}</p>
-                <footer class="blockquote-footer">by {{comment.user.username}} <cite title="Source Title">
-                    @ {{comment.timestamp|timesince}} ago</cite></footer>
-              </blockquote>
-           
-        </div>
-      
-        {% endfor %}
-        <div class="card-footer">
+        <div class="card-body">
             <form action="" class="form" method="POST">
                 {%csrf_token %}
                 {% bootstrap_form comment_form %}
                 <input type="submit" value="Comment" class="btn btn-sm btn-outline-success">
             </form>
         </div>
+        {% for comment in comments %}
+        <div class="card-footer mt-1 mb-1 bg-dark text-white">
+
+            <blockquote class="blockquote text-left ">
+                <p class="mb-0 ">{{comment.content}}</p>
+                <footer class="blockquote-footer">by {{comment.user.username}} <cite title="Source Title">
+                    @ {{comment.timestamp|timesince}} ago</cite> 
+                </footer>
+                </blockquote>
+                    <hr>
+                    <div >
+                    {% for child_comment in comment.children %}
+                    <blockquote class="blockquote text-right">
+                        <p class="mb-0">{{child_comment.content}}</p>
+                        <footer class="blockquote-footer">by {{child_comment.user.username}} <cite title="Source Title">
+                            @ {{child_comment.timestamp|timesince}} ago</cite></footer>
+                      </blockquote>
+                      {%endfor %}
+                      <hr>
+                      <a href="#" class="reply-btn btn btn-dark">Reply</a>
+                    </div>
+                    <form action="" class="form comment" method="POST" id="comment" style="display:none;">
+                        {%csrf_token %}
+                        {% bootstrap_form comment_form %}
+                        <input type="hidden" name="parent_id" value="{{comment.id}}">
+                        <input type="submit" value="Reply" class="btn btn-sm btn-outline-warning">
+                    </form>
+                
+           
+        </div>
+      
+        {% endfor %}
+       
     </div>
 </div>
 
 
 {% endblock %}
+
+
+{% block head_extra %} 
+
+{%endblock head_extra %}
