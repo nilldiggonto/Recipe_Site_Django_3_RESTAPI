@@ -31,7 +31,8 @@
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Api</a>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="{% url 'post_api:list_api' %}">List API</a>
-            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="{% url 'accounts_api:user_create' %}">Account API</a>
+            <a class="dropdown-item" href="{% url 'accounts_api:user_login' %}">Login API</a>
             <a class="dropdown-item" href="#">Something else here</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Separated link</a>
