@@ -5,6 +5,12 @@ from posts.models import Post
 
 from rest_framework.permissions import AllowAny,IsAuthenticated,IsAdminUser,IsAuthenticatedOrReadOnly
 from .permissions import IsOwnerOrReadOnly
+from django.db.models import Q
+
+from rest_framework.filters import SearchFilter,OrderingFilter
+
+from rest_framework.pagination import LimitOffsetPagination,PageNumberPagination
+from .paginations import PostLimitOffsetPagination,PostPageNumberPagination
 #create
 class PostCreateAPIView(CreateAPIView):
     queryset = Post.objects.all()
@@ -18,8 +24,27 @@ class PostCreateAPIView(CreateAPIView):
 
 #list
 class PostListAPIView(ListAPIView):
-    queryset = Post.objects.all()
+
+    # queryset = Post.objects.all()
     serializer_class = PostListSerializer
+
+    #build-in filter
+    filter_backends = [SearchFilter,OrderingFilter]
+    search_fields = ['title','content']
+
+    #build-in pagination
+    pagination_class = PostPageNumberPagination
+
+    def get_queryset(self,*args,**kwargs):
+        # queryset_list = super(PostListAPIView).get_queryset(*args,**kwargs)
+        queryset_list = Post.objects.all()
+        query = self.request.GET.get('q')
+        if query:
+            queryset_list = queryset_list.filter(
+                Q(title__icontains = query) |
+                Q(content__icontains = query)
+            ).distinct()
+        return queryset_list
 
 #detail
 class PostDetailAPIView(RetrieveAPIView):
@@ -42,3 +67,4 @@ class PostDestroyAPIView(DestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
     lookup_field = 'slug'
+    permission_classes = [IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
